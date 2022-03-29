@@ -1,5 +1,5 @@
 body {
-  background-color: #e5e5e5;
+  background-color: whitesmoke;
   margin: 0;
   padding: 0;
 }
@@ -73,18 +73,25 @@ img:hover {
 
 select {
   border-radius: 5px;
+  width: 200px;
+  height: 43px;
   border: 1px solid #ccc;
   padding: 10px;
   font-size: 18px;
   color: #818181;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;
+  
 }
 
 .entry {
+  width: 178px;
+  height: 20px;
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 10px;
   font-size: 18px;
   color: #818181;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 button {
   border-radius: 5px;
