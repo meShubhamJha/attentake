@@ -20,7 +20,3 @@ select {
   color: white;
   align-self: flex-end;
 }
-button:hover {
-  cursor: pointer;
-  box-shadow: #818181 0 0 2px;
-}

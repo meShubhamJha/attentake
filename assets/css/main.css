@@ -60,11 +60,16 @@ body {
   color: #818181;
   margin-top: 26px;
 }
-img {
+.profile {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   margin: 10px;
+}
+.qrcodeattendance {
+  margin: auto;
+  width: 70%;
+  height: 70%;
 }
 img:hover {
   cursor: pointer;
@@ -79,8 +84,7 @@ select {
   padding: 10px;
   font-size: 18px;
   color: #818181;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;
-  
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .entry {
@@ -179,6 +183,33 @@ path {
   100% {
     stroke-dashoffset: 0;
     fill: black;
-    transition-delay: 10s;
+  }
+}
+
+.typewriter h1 {
+  overflow: hidden;
+  border-right: 0.15em solid orange;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
   }
 }

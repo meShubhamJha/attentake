@@ -46,6 +46,7 @@
         <div class="topbar">
           <h1>Shubham Jha</h1>
           <img
+          class="profile"
             src="./assets/img/man.png"
             alt="Shubham Jha"
             height="50"
@@ -65,7 +66,7 @@
                 </div>
                 <hr>
     
-                <select style="margin:15px">
+                <select id="class" style="margin:15px" onchange="update()">
                     <option>Select Class</option>
                     <option>Class 1</option>
                     <option>Class 2</option>
@@ -78,82 +79,16 @@
                     <option>Class 9</option>
                     <option>Class 10</option>
                   </select>
-                  <input class = "entry" type="date" />
+                  <input id ="date" onchange="update()" class = "entry" type="date" />
                 <br>
                 <hr>
                 <div class="main">
-                    <table>
+                    <table id = "students">
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Registration</th>
                             <th>Status</th>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
-                        </tr>
-                        <tr>
-                            <td>Shubham Jha</td>
-                            <td>sjha0090@gmail.com</td>
-                            <td>200C2030031</td>
-                            <td><input type="checkbox" name="check" id="check"></td>
                         </tr>
                         
                     </table>
@@ -161,5 +96,79 @@
             </div>
         </div>
     </div>
+<script>
+    var table = document.getElementById("students");
+    function loadDoc(cls, date) 
+    {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() 
+        {
+            console.log(cls);
+            console.log(date);
+            if (this.readyState == 4 && this.status == 200) 
+            {
+                let data = this.responseText;
+                let obj = JSON.parse(data);
+                //iterating through each item
+                if (typeof(cls) != "undefined" && typeof(date) != "undefined")
+                {
+                    for (let i = 0; i < obj["data"].length; i++) 
+                    {
+                        console.log(obj["data"][i])
+                        if (obj["data"][i]["class"] == cls && obj["data"][i]["date"] == date)
+                        {
+                            let row = document.createElement("tr");
+                            let name = document.createElement("td");
+                            let email = document.createElement("td");
+                            let reg = document.createElement("td");
+                            let status = document.createElement("td");
+                            let check = document.createElement("input");
+                            check.type = "checkbox";
+                            check.name = "check";
+                            check.id = "check";
+                            name.innerHTML = obj["data"][i]["name"];
+                            email.innerHTML = obj["data"][i]["email"];
+                            reg.innerHTML = obj["data"][i]["registration"];
+                            if (obj["data"][i]["attendance"] == "1")
+                            {
+                                check.checked = true;
+                            }
+                            else
+                            {
+                                check.checked = false;
+                                check.disabled = true;
+                            }
+                            status.appendChild(check);
+                            row.appendChild(name);
+                            row.appendChild(email);
+                            row.appendChild(reg);
+                            row.appendChild(status);
+                            table.appendChild(row);
+                        }
+                    }
+                }                 
+            }
+            else if (this.readyState == 4 && this.status == 404)
+            {
+                alert("Error");
+            }
+        }
+    xhttp.open("GET", "data.json");
+    xhttp.send();
+}
+function update(){
+                let cls = document.getElementById("class").value;
+                let date = document.getElementById("date").value;
+                let table = document.getElementById("students");
+                //clear the table except the first row
+                while (table.rows.length > 1) 
+                {
+                    table.deleteRow(1);
+                }
+                console.log(cls,date);
+                loadDoc(cls, date);
+            }
+
+</script>
   </body>
 </html>
