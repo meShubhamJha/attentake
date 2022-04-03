@@ -55,7 +55,7 @@
         <div class="date">Date : 10-03-22<br />Time : 10:33 PM</div>
         <div class = "container">
         <div class="containerv" style="margin-left: 0px; width: 30%;">
-        <select>
+        <select id="cls">
           <option>Select Class</option>
           <option>Class 1</option>
           <option>Class 2</option>
@@ -68,15 +68,75 @@
           <option>Class 9</option>
           <option>Class 10</option>
         </select>
-        <input class = "entry" type="date" />
+        <input id="date" class = "entry" type="date" />
         <div class="generateQR">
-          <button>Generate QR</button>
-        </div>  
+          <button onclick="generateQR();renderAttendeeList()">Generate QR</button>
+        </div>
+        <div id="stop" class="generateQR">
+        </div>
+        <div class="attendeelist">
+           <h3 style="text-align: center; font-size: 22px; margin: 10px 0px 10px 0px; color: rgb(78, 78, 78);">Attendee List</h3>
+        <table id="attendee">        
+        </table>
+        </div> 
     </div>
     <div class="containerv" style="margin-left: 0px;">
-      <img class="qrcodeattendance" src="./assets/img/sampleQR.png" alt="QR" />
+      <div id="attenQR" class="qrcodeattendance" src="" alt="QR" ></div>
     </div>
       </div>
       </div>
+      <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+      <script type="text/javascript">
+      function generateQR(){
+      let date = document.getElementById("date").value;
+      let cls = document.getElementById("cls").value;
+      let data = date+cls;
+      let qrcodediv = document.getElementById("attenQR");
+      qrcodediv.innerHTML = "";
+      var qrcode = new QRCode(qrcodediv, {
+      text: data,
+      width: 600,
+      height: 600,
+      colorDark : "black",
+      colorLight : "whitesmoke",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+    //creating stop button for QR
+    let stop = document.getElementById("stop");
+    stop.innerHTML = "";
+    let button = document.createElement("button");
+    button.innerHTML = "Stop";
+    button.style.backgroundColor = "red";
+    button.onclick = function(){
+      qrcodediv.innerHTML = "";
+      stop.innerHTML = "";
+    }
+    stop.appendChild(button);
+
+  }
+
+
+//dyanmically rendering attendies list and appending it to table
+function renderAttendeeList(){
+  let attendeeBox = document.getElementById("attendee");
+  let attendeeList = ["Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha"];
+  for(let i = 0; i < attendeeList.length; i++){
+    let row = document.createElement("tr");
+    let image = document.createElement("img");
+    image.src = "./assets/img/man.png";
+    image.alt = "profile";
+    image.className = "attendeeprofile"
+    let col1 = document.createElement("td");
+    let col2 = document.createElement("td");
+    col1.appendChild(image);
+    col2.innerHTML = attendeeList[i]
+    row.appendChild(col1)
+    row.appendChild(col2)
+    attendeeBox.appendChild(row)
+}
+}
+
+      </script>
+
   </body>
 </html>
