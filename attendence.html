@@ -120,6 +120,7 @@
 function renderAttendeeList(){
   let attendeeBox = document.getElementById("attendee");
   let attendeeList = ["Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha", "Shubham Jha"];
+  
   for(let i = 0; i < attendeeList.length; i++){
     let row = document.createElement("tr");
     let image = document.createElement("img");
@@ -133,8 +134,10 @@ function renderAttendeeList(){
     row.appendChild(col1)
     row.appendChild(col2)
     attendeeBox.appendChild(row)
+  }
+
 }
-}
+
 
       </script>
 
